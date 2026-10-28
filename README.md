@@ -1,9 +1,9 @@
 # 🎲 Dice Roller
 
 An interactive dice rolling website built with HTML, CSS and JavaScript.
-Submitted for the Programming Club (IIT Indore) Software Division Volunteer Induction — Problem Statement 1.
 
-**Live demo:** https://YOUR-USERNAME.github.io/dice-roll/
+
+**Live demo:** https://rkpmanesh-technodocs.github.io/dice-roll/
 
 ## Features
 
@@ -54,7 +54,7 @@ dice-roll/
 └── README.md
 ```
 
-## Screenshots
+## Photos
 
-![Light mode](screenshots/light.png)
-![Dark mode](screenshots/dark.png)
+![Light mode](light.png)
+![Dark mode](dark.png)
