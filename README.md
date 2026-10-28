@@ -38,7 +38,7 @@ Math.floor(Math.random() * 6) + 1
 
 1. Clone the repository:
    ```
-   git clone https://github.com/YOUR-USERNAME/dice-roll.git
+   git clone https://github.com/rkpmanesh-technodocs/dice-roll.git
    ```
 2. Open the folder and double-click `index.html`, or open it with the Live Server extension in VS Code.
 
