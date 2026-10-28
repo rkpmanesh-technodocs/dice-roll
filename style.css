@@ -1,0 +1,260 @@
+/* ===== Colours (variables) =====
+   We store colours in variables so dark mode only has to change them in one place. */
+:root {
+  --bg: #f4f1ea;
+  --card: #ffffff;
+  --text: #1f2430;
+  --muted: #6b7280;
+  --accent: #e4572e;
+  --accent-dark: #c2411c;
+  --die: #ffffff;
+  --pip: #1f2430;
+  --border: #e5e0d5;
+}
+
+/* Dark mode: when <body data-theme="dark">, these colours replace the ones above */
+body[data-theme="dark"] {
+  --bg: #15171e;
+  --card: #1f2230;
+  --text: #eef0f5;
+  --muted: #9aa1b2;
+  --die: #f5f5f5;
+  --pip: #15171e;
+  --border: #2d3142;
+}
+
+/* Remove default browser spacing */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Centered column, max 640px wide, so it looks good on phone and laptop */
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 { font-size: 1.8rem; }
+h2 { font-size: 1.1rem; }
+
+.icon-btn {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+/* ===== Dice ===== */
+.dice-area {
+  display: flex;
+  flex-wrap: wrap;          /* dice move to the next line on small screens */
+  justify-content: center;
+  gap: 16px;
+  min-height: 120px;
+  padding: 16px 0;
+}
+
+/* While rolling, the whole dice area shakes */
+.dice-area.rolling {
+  animation: shake 0.25s infinite;
+}
+
+@keyframes shake {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(-4px, 2px) rotate(-6deg); }
+  50%  { transform: translate(3px, -2px) rotate(5deg); }
+  75%  { transform: translate(-2px, -3px) rotate(-3deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* One die = a rounded square split into a 3x3 grid.
+   Each dot (pip) is placed into one of the 9 cells. */
+.die {
+  width: clamp(64px, 20vw, 96px);   /* smaller on phones, bigger on laptops */
+  aspect-ratio: 1;                  /* always a perfect square */
+  background: var(--die);
+  border-radius: 18%;
+  box-shadow: 0 6px 0 #d6d0c4, 0 10px 20px rgba(0, 0, 0, 0.15);
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  padding: 10px;
+}
+
+/* Each dot stretches to fill its grid cell, with a small gap around it */
+.pip {
+  background: var(--pip);
+  border-radius: 50%;
+  margin: 12%;
+}
+
+.total {
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.total span {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* ===== Roll button ===== */
+.roll-btn {
+  align-self: center;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 14px 48px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--accent-dark);
+  transition: transform 0.1s;
+}
+
+/* Button "presses down" when clicked */
+.roll-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--accent-dark);
+}
+
+.roll-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.hint {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: -10px;
+}
+
+/* ===== History and Statistics cards ===== */
+.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+#history-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#history-list li {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+/* Highlight the most recent roll */
+#history-list li:first-child {
+  border-left: 4px solid var(--accent);
+}
+
+#history-list li.empty {
+  background: none;
+  border: none;
+  color: var(--muted);
+}
+
+/* ===== Bar chart ===== */
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 150px;
+  margin-top: 12px;
+}
+
+.bar-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.bar-track {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bar {
+  width: 100%;
+  background: var(--accent);
+  border-radius: 6px 6px 0 0;
+  min-height: 2px;
+  transition: height 0.3s;
+}
+
+.bar-count,
+.bar-label {
+  font-size: 0.85rem;
+}
+
+.bar-label {
+  color: var(--muted);
+  font-weight: 700;
+}

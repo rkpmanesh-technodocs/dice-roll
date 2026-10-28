@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dice Roller</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+
+    <!-- Top bar: title + dark/light theme button -->
+    <header>
+      <h1>🎲 Dice Roller</h1>
+      <button id="theme-btn" class="icon-btn" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <!-- Choose how many dice to roll -->
+    <section class="controls">
+      <label for="dice-count">Number of dice:</label>
+      <select id="dice-count">
+        <option value="1">1</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+    </section>
+
+    <!-- JavaScript draws the dice inside this box -->
+    <section id="dice-area" class="dice-area"></section>
+
+    <p class="total">Total: <span id="total">–</span></p>
+
+    <button id="roll-btn" class="roll-btn">Roll</button>
+    <p class="hint">Tip: press the Space bar to roll</p>
+
+    <!-- Last 10 rolls -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2>History</h2>
+        <button id="clear-btn" class="text-btn">Clear all</button>
+      </div>
+      <ul id="history-list"></ul>
+    </section>
+
+    <!-- How often each number came up -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Statistics</h2>
+      </div>
+      <p>Dice rolled: <strong id="roll-count">0</strong> · Average value: <strong id="average">–</strong></p>
+      <div id="chart" class="chart"></div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
